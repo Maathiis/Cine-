@@ -1,6 +1,17 @@
 <script>
     import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
+
     $: currentPath = $page.url.pathname;
+
+    let query = '';
+
+    function handleKeyDown(event) {
+      if (event.key === 'Enter' && query.trim() !== '') {
+        goto(`/search?query=${encodeURIComponent(query)}`);
+      }
+    }
+
   </script>
 
 <header>
@@ -20,7 +31,12 @@
             </li>
           </ul>
         <div class="navbar-right">
-            <input type="text" class="search-input" placeholder="Rechercher un film...">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Rechercher un film..."
+              bind:value={query}
+              on:keydown={handleKeyDown} />
         </div>
     </nav>
 </header>
