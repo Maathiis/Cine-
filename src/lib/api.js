@@ -196,3 +196,19 @@ export const getActorDetails = async (id, page = 1) => {
 	return  response.json();
 };
 
+/*
+* Get details from a movie by id
+*
+* @param {number} id
+* @returns {Promise}
+*
+* */
+export const getMovieDetails = async (id) => {
+	const response = await fetch(
+		`${API_URL}movie/${id}?language=fr-FR`,
+		{
+			method: "GET",
+			headers,
+		});
+	return  response.json();
+};

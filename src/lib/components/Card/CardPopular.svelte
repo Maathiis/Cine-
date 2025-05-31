@@ -8,28 +8,8 @@
     export let crew = "Martin Campbell";
     export let synopsis = "Lors d'un gala d'entreprise très médiatisé, un groupe de terroristes lourdement armés prend le contrôle de 300 otages. À leur insu, une laveuse de vitres solitaire est témoin du crime en cours et, en fin de compte, c'est une ancienne soldat, douée pour le combat au corps à corps et les armes à feu.";
     export let image = "/images/cleaner.jpg";
-
-    function transformMinutesToHours(minutes) {
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
-        return `${hours}h${remainingMinutes.toString().padStart(2, '0')}`;
-    }
-
-    function convertScore(scoreStr) {
-        const score = parseFloat(scoreStr);
-        return Math.round(score * 10);      
-    }
-
-    function formatDateFR(dateStr) {
-        const [year, month, day] = dateStr.split("-");
-        return `${day}/${month}/${year}`;
-    }
-
-    function getScoreColor(score) {
-        if (score >= 70) return '#D6FF4B'; 
-        if (score >= 40) return '#FFB800'; 
-        return '#F51010'; 
-    }
+    import { transformMinutesToHours, convertScore, formatDateFR, getScoreColor } from "$lib/globalFunction.js";
+    
 
     function getDirector(crew) {
       if (!Array.isArray(crew)) return "Unknown";
@@ -50,10 +30,8 @@
         <img 
             src={image} 
             alt={title} 
-            class="w-full h-full object-cover rounded-[20px] shadow-md"
+            class="w-full h-full object-cover rounded-[20px]"
         />
-        <!-- Overlay gradient pour améliorer la lisibilité -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-[20px]"></div>
     </div>
 
     <!-- Infos -->
@@ -111,7 +89,7 @@
         <!-- Synopsis -->
         <div>
             <span class="inline-block bg-[#F51010] text-white font-bold px-1.5 py-0.5 rounded -rotate-3 mb-1 text-xs">Synopsis</span>
-            <p class="text-gray-200 text-xs line-clamp-5">{synopsis}</p>
+            <p class="text-gray-200 text-xs line-clamp-4">{synopsis}</p>
         </div>
     </div>
 </div>

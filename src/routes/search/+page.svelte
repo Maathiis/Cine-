@@ -69,6 +69,7 @@
 			<!-- Grille de films -->
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 mb-8">
 				{#each movies as movie}
+				<a href={`/film/${movie.id}`}>
 					<div class="movie-card">
 						<!-- Conteneur de l'affiche avec bordure rouge pour debug -->
 						<div class="image-container">
@@ -114,6 +115,7 @@
 							</p>
 						{/if}
 					</div>
+				</a>
 				{/each}
 			</div>
 
@@ -184,6 +186,7 @@
 		transition: color 0.3s ease;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
