@@ -2,6 +2,8 @@
   import { filterUpcomingMovies } from "$lib/globalFunction.js";
   import Card from "$lib/components/Card/Card.svelte";
 
+  let isUpcoming = true;
+
   export let data;
   $: upcomingMovies = filterUpcomingMovies(data.upcomingMovies.results);
   $: currentMovies = data.currentMovies.results;
@@ -37,7 +39,7 @@
         <span class="absolute -left-2 -bottom-2 top-1 bg-[#F51010] z-0 w-[110%] h-3/4 rounded-lg -rotate-3"></span>
       </h2>
     </div>
-    <div class="flex overflow-x-auto gap-6 scrollbar-hide pl-12 pr-12">
+    <div class="flex overflow-x-auto gap-6 scrollbar-hide pl-12 pr-12 pt-12">
       {#each currentMovies as film}
         <Card {film} />
       {/each}
@@ -52,9 +54,9 @@
         <span class="absolute -left-2 -bottom-2 top-1 bg-[#F51010] z-0 w-[110%] h-3/4 rounded-lg -rotate-3"></span>
       </h2>
     </div>
-    <div class="flex overflow-x-auto gap-10 scrollbar-hide pl-12 pr-12">
+    <div class="flex overflow-x-auto gap-10 scrollbar-hide p-12">
       {#each upcomingMovies as film}
-        <Card {film} size="large" />
+        <Card {film} size="large" {isUpcoming} />
       {/each}
     </div>
   </section>

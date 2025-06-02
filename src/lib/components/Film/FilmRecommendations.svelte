@@ -10,7 +10,7 @@
         <span class="absolute -left-2 -bottom-1 top-2 bg-[#F51010] z-0 w-full h-2/3 rounded-lg -rotate-2"></span>
     </h1>
 
-    <div class="flex overflow-x-auto pb-6 px-4 gap-8 cast-scroll">
+    <div class="flex overflow-x-auto py-6 px-4 gap-8 cast-scroll">
         {#if recommendations.length > 0}
             {#each recommendations as movie}
             <a href={`/film/${movie.id}`}>

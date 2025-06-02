@@ -17,6 +17,13 @@ export function formatDateFR(dateStr) {
     return `${day}/${month}/${year}`;
 }
 
+// Convertit la date en date texte français
+export function formatDateTextFR(dateStr) {
+    const [year, month, day] = dateStr.split("-");
+    const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+    return `${day} ${months[month - 1]} ${year}`;
+}
+
 // Convertit la date format iso en date française
 export function formatISODateFR(isoString) {
     const date = new Date(isoString);

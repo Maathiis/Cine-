@@ -24,7 +24,7 @@
     }
 </script>
 
-<div class="bg-[#191919] rounded-[32px] flex flex-col md:flex-row p-6 md:p-8 gap-5 md:gap-7 w-full max-w-2xl mx-auto shadow-lg hover:shadow-xl transition-shadow duration-300">
+<div class="bg-[#191919] rounded-[32px] flex flex-col md:flex-row p-6 md:p-8 gap-5 md:gap-7 w-full max-w-2xl mx-auto shadow-lg hover:shadow-xl  transition-transform duration-300 hover:scale-105">
     <!-- Affiche -->
     <div class="relative w-full md:w-[180px] h-[250px] md:h-[320px] flex-shrink-0">
         <img 

@@ -5,7 +5,7 @@
     export let number2;
 </script>
 
-<section class="flex overflow-x-auto pb-6 px-4 gap-8 cast-scroll">
+<section class="flex overflow-x-auto py-6 px-4 gap-8 cast-scroll">
     {#each currentMovies.slice(number1, number2) as movie}
     <a href={`/film/${movie.id}`}>
         <div class="flex-shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer w-[320px]">

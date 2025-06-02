@@ -49,7 +49,7 @@ export const getPopularMovies = async (page = 1) => {
 * */
 export const getUpcomingMovies = async (page = 1) => {
 	const response = await fetch(
-		`${API_URL}movie/upcoming?language=${language}&page=${page}`,
+		`${API_URL}movie/upcoming?language=${language}&page=${page}&region=FR`,
 		{
 			method: "GET",
 			headers,

@@ -15,7 +15,7 @@
 
 <a
     href={`/people/${actor.id}`}
-    class="block w-full max-w-[180px] rounded-[20px] bg-neutral-900 flex-shrink-0 overflow-hidden"
+    class="block w-full max-w-[180px] rounded-[20px] bg-neutral-900 flex-shrink-0 overflow-hidden transition-transform duration-300 hover:scale-105"
 >
     <div class="aspect-[2/3] overflow-hidden rounded-t-[20px]">
         <img 

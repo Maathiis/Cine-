@@ -2,7 +2,6 @@
   export let data;
   $: currentMovies = data.currentMovies.results;
 
-  $: console.log(currentMovies);
   
   import Card from "$lib/components/Card/Card.svelte";
   import CarrouselCurrent from "$lib/components/Carrousel/CarrouselCurrent.svelte";
@@ -23,21 +22,21 @@
     <a href={`/film/${currentMovies[0].id}`}>
       <div class="absolute top-10 left-[43%]  w-[190px] h-[270px]">
         <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
-        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[0].poster_path}`} alt={currentMovies[0].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[0].poster_path}`} alt={currentMovies[0].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl transition-transform duration-300 hover:scale-105">
       </div>
     </a>
 
     <a href={`/film/${currentMovies[1].id}`}>
       <div class="absolute top-40 left-[26%] w-[190px] h-[270px]">
         <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
-        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[1].poster_path}`} alt={currentMovies[1].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[1].poster_path}`} alt={currentMovies[1].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl transition-transform duration-300 hover:scale-105">
       </div>
     </a>
 
     <a href={`/film/${currentMovies[2].id}`}>
       <div class="absolute top-55 left-[61%] w-[190px] h-[270px]">
         <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-40 z-0"></div>
-        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[2].poster_path}`} alt={currentMovies[2].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[2].poster_path}`} alt={currentMovies[2].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl transition-transform duration-300 hover:scale-105">
       </div>
     </a>
     
@@ -153,15 +152,16 @@
     <span class="absolute -left-2 -bottom-1 top-2 bg-[#F51010] z-0 w-full h-2/3 rounded-lg -rotate-3"></span>
   </h2>
 
-  <div class="overflow-x-auto scrollbar-hide pl-4 pr-4">
+  <div class="overflow-x-auto scrollbar-hide p-4">
     <div
-      class="flex gap-20"
+      class="flex gap-20 "
       style="width:100%; min-width:2100px;"
+      
     >
       {#each currentMovies.slice(3, 10) as film, i}
       <a href={`/film/${film.id}`}>
         <div
-        class="flex flex-col items-center flex-none relative"
+        class="flex flex-col items-center flex-none relative "
         style="width:clamp(260px,18vw,270px);"
       >
         <div class="flex items-center w-full">
@@ -169,7 +169,7 @@
           <img
             src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
             alt={film.title}
-            class="w-full h-[42vw] max-h-[330px] min-h-[210px] rounded-3xl shadow-xl object-cover"
+            class="w-full h-[42vw] max-h-[330px] min-h-[210px] rounded-3xl shadow-xl object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
       </div>

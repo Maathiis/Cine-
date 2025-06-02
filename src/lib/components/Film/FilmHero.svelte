@@ -160,6 +160,8 @@
         border-radius: 16px;
         font-size: 0.85rem;
         font-weight: 500;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 
     .trailer-btn {

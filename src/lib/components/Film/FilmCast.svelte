@@ -26,7 +26,7 @@
     </div>
     
     <!-- Container des cartes - positionné au-dessus du SVG -->
-    <div class="relative z-10 pt-4">
+    <div class="relative z-10">
         <!-- Scroll horizontal des cartes -->
         <div class="flex gap-6 overflow-x-auto pb-6 px-4 cast-scroll">
             {#each cast as actor}
