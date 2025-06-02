@@ -19,7 +19,6 @@
         
     </div>
     <div class="text-center px-4 text-white">
-        <span class={`block text-red-600 font-bold ${isLarge ? 'text-lg' : 'text-base'}`}>{formatDateFR(film.release_date)}</span>
         <span class={`block font-semibold ${isLarge ? 'text-2xl' : 'text-lg'}`}>{film.title}</span>
     </div>
   </section>

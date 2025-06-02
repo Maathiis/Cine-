@@ -1,35 +1,12 @@
 <script>
-  // Top 3
-  let top3 = [
-    { titre: "Blanche Neige", img: "/images/blanche-neige.png" },
-    { titre: "Neverland Nightmare", img: "/images/neverland.png" },
-    { titre: "Minecraft Le Film", img: "/images/minecraft.png" }
-  ];
+  export let data;
+  $: currentMovies = data.currentMovies.results;
 
-  // Top 10 (exemple)
-  let top10 = [
-    { titre: "Mickey 17", img: "/images/mickey17.png" },
-    { titre: "The Insider", img: "/images/insider.png" },
-    { titre: "Le Singe", img: "/images/singe.png" },
-    { titre: "Super Chien", img: "/images/super-chien.png" },
-    { titre: "Film 8", img: "/images/film8.png" },
-    { titre: "Film 9", img: "/images/film9.png" },
-    { titre: "Film 10", img: "/images/film10.png" }
-  ];
+  $: console.log(currentMovies);
+  
+  import Card from "$lib/components/Card/Card.svelte";
+  import { getScoreColor, convertScore } from "$lib/globalFunction.js";
 
-  // Films du moment (exemple)
-  let films = [
-    { titre: "Parthenope", img: "/images/parthenope.png" },
-    { titre: "L'Amateur", img: "/images/amateur.png" },
-    { titre: "La Mort Licorne", img: "/images/licorne.png" },
-    { titre: "One of Them Days", img: "/images/oneofthem.png" },
-    { titre: "A Real Pain", img: "/images/arealpain.png" },
-    { titre: "In the Lost Lands", img: "/images/lostlands.png" },
-    { titre: "Alto Knights", img: "/images/altoknights.png" },
-    { titre: "Queer", img: "/images/queer.png" },
-    { titre: "La Jeune Femme à l'Aiguille", img: "/images/aiguille.png" },
-    { titre: "Piège", img: "/images/piege.png" }
-  ];
 </script>
 
 <main class="bg-black min-h-screen text-white pb-16">
@@ -40,9 +17,24 @@
   </h2>
 
   <!-- PODIUM SVG -->
-  <div class="relative w-full flex justify-center items-end" style="height:clamp(300px,44vw,520px); margin-top:16vw;">
+  <div class="relative w-full flex justify-center items-end" style="height:clamp(700px,44vw,520px);">
+    <div class="absolute top-10 left-[43%]  w-[190px] h-[270px]">
+      <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
+      <img src={`https://image.tmdb.org/t/p/w500${currentMovies[0].poster_path}`} alt={currentMovies[0].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+    </div>
+
+    <div class="absolute top-40 left-[26%] w-[190px] h-[270px]">
+      <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
+      <img src={`https://image.tmdb.org/t/p/w500${currentMovies[1].poster_path}`} alt={currentMovies[1].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+    </div>
+
+    <div class="absolute top-55 left-[61%] w-[190px] h-[270px]">
+      <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-40 z-0"></div>
+      <img src={`https://image.tmdb.org/t/p/w500${currentMovies[2].poster_path}`} alt={currentMovies[2].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+    </div>
+
     <!-- SVG podium inline -->
-    <svg viewBox="0 0 1272 700" fill="none" xmlns="http://www.w3.org/2000/svg"s
+    <svg viewBox="50 -180 1100 500" fill="none" xmlns="http://www.w3.org/2000/svg"s
       class="w-[95vw] max-w-[900px] h-full block">
       <g filter="url(#filter0_d_8_4368)">
         <path d="M1050.1 224L1100 265H760V224H1050.1Z" fill="url(#paint0_linear_8_4368)"/>
@@ -147,17 +139,17 @@
   </div>
 
   <!-- Titre Top 10 -->
-  <h2 class="relative text-xl font-bold w-fit mb-6 ml-2">
+  <h2 class="relative text-xl font-bold w-fit mt-10 mb-6 ml-2">
     <span class="relative z-10 text-white">Top 10 film du moment</span>
     <span class="absolute -left-2 -bottom-1 top-2 bg-[#F51010] z-0 w-full h-2/3 rounded-lg -rotate-3"></span>
   </h2>
 
-  <div class="overflow-x-auto scrollbar-hide pl-4 pr-4 -mx-2">
+  <div class="overflow-x-auto scrollbar-hide pl-4 pr-4">
     <div
       class="flex gap-20"
       style="width:100%; min-width:2100px;"
     >
-      {#each top10 as film, i}
+      {#each currentMovies.slice(3, 10) as film, i}
         <div
           class="flex flex-col items-center flex-none relative"
           style="width:clamp(260px,18vw,270px);"
@@ -165,8 +157,8 @@
           <div class="flex items-center w-full">
             <span class="text-white font-extrabold mr-24 text-[clamp(200px,18vw,300px)] leading-none min-w-0" style="line-height:1;">{i+4}</span>
             <img
-              src={film.img}
-              alt={film.titre}
+              src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
+              alt={film.title}
               class="w-full h-[42vw] max-h-[330px] min-h-[210px] rounded-3xl shadow-xl object-cover"
             />
           </div>
@@ -183,19 +175,41 @@
     <span class="absolute -left-2 -bottom-1 top-2 bg-[#F51010] z-0 w-full h-2/3 rounded-lg -rotate-3"></span>
   </h2>
 
-  <!-- Grille des films du moment Responsive (affiches *2) -->
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 gap-y-8 px-4">
-    {#each films as film}
-      <div class="flex flex-col items-center">
-        <img src={film.img} alt={film.titre} class="w-full max-w-[240px] h-auto aspect-[7/10] rounded-3xl shadow-xl object-cover mb-2" />
-      </div>
-    {/each}
-  </div>
+  <div class="flex overflow-x-auto pb-6 px-4 gap-8 cast-scroll">
+        {#each currentMovies.slice(10, 20) as movie}
+        <a href={`/film/${movie.id}`}>
+            <div class="flex-shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer w-[320px]">
+                <div class="relative w-full h-[480px] rounded-xl overflow-hidden bg-neutral-800">
+                    <img
+                        src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} 
+                        alt={movie.title}
+                        class="w-full h-full object-contain"
+                    />
+                    <div class="absolute top-2 right-2">
+                        <div class="relative w-10 h-10 bg-black/80 rounded-full flex items-center justify-center">
+                            <svg width="40" height="40" class="absolute transform -rotate-90">
+                                <circle cx="20" cy="20" r="16" fill="none" stroke="#333" stroke-width="3"/>
+                                <circle
+                                    cx="20" cy="20" r="16"
+                                    fill="none"
+                                    stroke={getScoreColor(convertScore(movie.vote_average))}
+                                    stroke-width="3"
+                                    stroke-dasharray="100"
+                                    stroke-dashoffset={100 - (100 * convertScore(movie.vote_average) / 100)}
+                                    stroke-linecap="round"
+                                    class="score-progress"
+                                />
+                            </svg>
+                            <span class="text-white text-xs font-bold z-10">{convertScore(movie.vote_average)}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-base font-semibold text-white text-center w-full mt-5 whitespace-normal break-words">{movie.title}</h3>
+        </a>
+        {/each}
+</div>
 
-  <!-- Bouton Afficher davantage -->
-  <div class="flex justify-center mt-8">
-    <button class="text-white font-bold text-lg hover:underline">Afficher davantage</button>
-  </div>
 </main>
 
 <style>
@@ -206,4 +220,26 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  .cast-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #F51010 transparent;
+    }
+
+    .cast-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .cast-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .cast-scroll::-webkit-scrollbar-thumb {
+        background: #F51010;
+        border-radius: 3px;
+    }
+
+    .score-progress {
+        transition: stroke-dashoffset 0.5s ease;
+    }
 </style>
