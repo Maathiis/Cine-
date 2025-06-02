@@ -1,6 +1,17 @@
 <script>
-  let duMoment = Array(10).fill({});
-  let aVenir = Array(6).fill({});
+  import { filterUpcomingMovies } from "$lib/globalFunction.js";
+  import Card from "$lib/components/Card/Card.svelte";
+
+  export let data;
+  $: upcomingMovies = filterUpcomingMovies(data.upcomingMovies.results);
+  $: currentMovies = data.currentMovies.results;
+
+  $: film = {
+    title: upcomingMovies.title,
+    date: upcomingMovies.release_date,
+    image: upcomingMovies.poster_path
+  };
+
   let partenaires = [
     { src: "/images/pathe.png", alt: "Pathé" },
     { src: "/images/UGC.png", alt: "UGC" },
@@ -26,15 +37,9 @@
         <span class="absolute -left-2 -bottom-2 top-1 bg-[#F51010] z-0 w-[110%] h-3/4 rounded-lg -rotate-3"></span>
       </h2>
     </div>
-    <div class="flex overflow-x-auto gap-8 scrollbar-hide pl-12 pr-12">
-      {#each duMoment as film, i (i)}
-        <div class="flex-none w-[320px] h-[440px] bg-gray-800 rounded-2xl shadow-xl">
-          <div class="h-4/5 bg-gray-700 rounded-xl mb-2"></div>
-          <div class="text-center px-2">
-            <span class="block text-red-600 font-bold">{film.date || ''}</span>
-            <span class="block text-lg">{film.titre || ''}</span>
-          </div>
-        </div>
+    <div class="flex overflow-x-auto gap-6 scrollbar-hide pl-12 pr-12">
+      {#each currentMovies as film}
+        <Card {film} />
       {/each}
     </div>
   </section>
@@ -48,14 +53,8 @@
       </h2>
     </div>
     <div class="flex overflow-x-auto gap-10 scrollbar-hide pl-12 pr-12">
-      {#each aVenir as film, i (i)}
-        <div class="flex-none w-[420px] h-[600px] bg-gray-800 rounded-2xl shadow-xl">
-          <div class="h-4/5 bg-gray-700 rounded-xl mb-2"></div>
-          <div class="text-center px-2">
-            <span class="block text-red-600 font-bold">{film.date || ''}</span>
-            <span class="block text-lg">{film.titre || ''}</span>
-          </div>
-        </div>
+      {#each upcomingMovies as film}
+        <Card {film} size="large" />
       {/each}
     </div>
   </section>

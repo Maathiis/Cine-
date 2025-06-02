@@ -79,3 +79,8 @@ export function translateStatus(status) {
     }
     return statusMap[status];
 }
+
+// N'affiche que les films pas encore sortis
+export function filterUpcomingMovies(movies) {
+    return movies.filter(movie => movie.release_date > new Date().toISOString().split('T')[0]);
+}

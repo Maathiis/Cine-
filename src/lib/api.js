@@ -7,6 +7,7 @@ const headers = {
 	Authorization: `Bearer ${API_KEY}`,
 };
 
+const language = "fr-FR";
 /*
 * Recherche de film par titre
 *
@@ -16,7 +17,7 @@ const headers = {
 * */
 export const searchMovieByTitle = async (title, page = 1) => {
 	const response = await fetch(
-		`${API_URL}search/movie?query=${title}&include_adult=false&language=en-US&page=${page}`,
+		`${API_URL}search/movie?query=${title}&include_adult=false&language=${language}&page=${page}`,
 		{
 			method: "GET",
 			headers,
@@ -48,7 +49,7 @@ export const getPopularMovies = async (page = 1) => {
 * */
 export const getUpcomingMovies = async (page = 1) => {
 	const response = await fetch(
-		`${API_URL}movie/upcoming?language=en-US&page=${page}`,
+		`${API_URL}movie/upcoming?language=${language}&page=${page}`,
 		{
 			method: "GET",
 			headers,
@@ -64,7 +65,7 @@ export const getUpcomingMovies = async (page = 1) => {
 * */
 export const getCurrentMovies = async (page = 1) => {
 	const response = await fetch(
-		`${API_URL}movie/now_playing?language=en-US&page=${page}`,
+		`${API_URL}movie/now_playing?language=${language}&page=${page}`,
 		{
 			method: "GET",
 			headers,
@@ -84,7 +85,7 @@ export const getCurrentMovies = async (page = 1) => {
 
 export const getMovieById = async (id) => {
 	const response = await fetch(
-		`${API_URL}movie/${id}?language=fr-FR`,
+		`${API_URL}movie/${id}?language=${language}`,
 		{
 			method: "GET",
 			headers,
@@ -100,7 +101,7 @@ export const getMovieById = async (id) => {
 * */
 export const getMovieCredits = async (id, page = 1) => {
 	const response = await fetch(
-		`${API_URL}movie/${id}/credits?language=fr-FR&page=${page}`,
+		`${API_URL}movie/${id}/credits?language=${language}&page=${page}`,
 		{
 			method: "GET",
 			headers,
@@ -117,7 +118,7 @@ export const getMovieCredits = async (id, page = 1) => {
 * */
 export const getMovieVideos = async (id) => {
 	const response = await fetch(
-		`${API_URL}movie/${id}/videos?language=fr-FR`,
+		`${API_URL}movie/${id}/videos?language=${language}`,
 		{
 			method: "GET",
 			headers,
@@ -151,7 +152,7 @@ export const getMovieImages = async (id) => {
 * */
 export const getMovieReviews = async (id, page = 1) => {
 	const response = await fetch(
-		`${API_URL}movie/${id}/reviews?language=fr-FR&page=${page}`,
+		`${API_URL}movie/${id}/reviews?language=${language}&page=${page}`,
 		{
 			method: "GET",
 			headers,
@@ -167,7 +168,7 @@ export const getMovieReviews = async (id, page = 1) => {
 * */
 export const getMovieRecommendations = async (id, page = 1) => {
 	const response = await fetch(
-		`${API_URL}movie/${id}/recommendations?language=fr-FR&page=${page}`,
+		`${API_URL}movie/${id}/recommendations?language=${language}&page=${page}`,
 		{
 			method: "GET",
 			headers,
@@ -188,7 +189,7 @@ export const getMovieRecommendations = async (id, page = 1) => {
 
 export const getActorDetails = async (id, page = 1) => {
 	const response = await fetch(
-		`${API_URL}person/${id}??append_to_response=movie_credits&language=fr-FR&page=${page}`,
+		`${API_URL}person/${id}??append_to_response=movie_credits&language=${language}&page=${page}`,
 		{
 			method: "GET",
 			headers,
@@ -205,7 +206,7 @@ export const getActorDetails = async (id, page = 1) => {
 * */
 export const getMovieDetails = async (id) => {
 	const response = await fetch(
-		`${API_URL}movie/${id}?language=fr-FR`,
+		`${API_URL}movie/${id}?language=${language}`,
 		{
 			method: "GET",
 			headers,

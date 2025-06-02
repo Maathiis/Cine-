@@ -8,10 +8,10 @@
     
     export let data;
     $: movie = data.movie;
-$: credits = data.credits;
-$: videos = data.videos;
-$: images = data.images;
-$: reviews = data.reviews;
+    $: credits = data.credits;
+    $: videos = data.videos;
+    $: images = data.images;
+    $: reviews = data.reviews;
 
 $: movieData = {
     title: movie.title,
