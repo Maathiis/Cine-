@@ -5,6 +5,7 @@
   $: console.log(currentMovies);
   
   import Card from "$lib/components/Card/Card.svelte";
+  import CarrouselCurrent from "$lib/components/Carrousel/CarrouselCurrent.svelte";
   import { getScoreColor, convertScore } from "$lib/globalFunction.js";
 
 </script>
@@ -18,20 +19,28 @@
 
   <!-- PODIUM SVG -->
   <div class="relative w-full flex justify-center items-end" style="height:clamp(700px,44vw,520px);">
-    <div class="absolute top-10 left-[43%]  w-[190px] h-[270px]">
-      <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
-      <img src={`https://image.tmdb.org/t/p/w500${currentMovies[0].poster_path}`} alt={currentMovies[0].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
-    </div>
 
-    <div class="absolute top-40 left-[26%] w-[190px] h-[270px]">
-      <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
-      <img src={`https://image.tmdb.org/t/p/w500${currentMovies[1].poster_path}`} alt={currentMovies[1].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
-    </div>
+    <a href={`/film/${currentMovies[0].id}`}>
+      <div class="absolute top-10 left-[43%]  w-[190px] h-[270px]">
+        <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
+        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[0].poster_path}`} alt={currentMovies[0].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+      </div>
+    </a>
 
-    <div class="absolute top-55 left-[61%] w-[190px] h-[270px]">
-      <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-40 z-0"></div>
-      <img src={`https://image.tmdb.org/t/p/w500${currentMovies[2].poster_path}`} alt={currentMovies[2].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
-    </div>
+    <a href={`/film/${currentMovies[1].id}`}>
+      <div class="absolute top-40 left-[26%] w-[190px] h-[270px]">
+        <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-30 z-0"></div>
+        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[1].poster_path}`} alt={currentMovies[1].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+      </div>
+    </a>
+
+    <a href={`/film/${currentMovies[2].id}`}>
+      <div class="absolute top-55 left-[61%] w-[190px] h-[270px]">
+        <div class="absolute inset-0 rounded-lg bg-white blur-2xl opacity-40 z-0"></div>
+        <img src={`https://image.tmdb.org/t/p/w500${currentMovies[2].poster_path}`} alt={currentMovies[2].title} class="w-full h-full object-cover relative z-10 rounded-3xl shadow-xl">
+      </div>
+    </a>
+    
 
     <!-- SVG podium inline -->
     <svg viewBox="50 -180 1100 500" fill="none" xmlns="http://www.w3.org/2000/svg"s
@@ -150,19 +159,22 @@
       style="width:100%; min-width:2100px;"
     >
       {#each currentMovies.slice(3, 10) as film, i}
+      <a href={`/film/${film.id}`}>
         <div
-          class="flex flex-col items-center flex-none relative"
-          style="width:clamp(260px,18vw,270px);"
-        >
-          <div class="flex items-center w-full">
-            <span class="text-white font-extrabold mr-24 text-[clamp(200px,18vw,300px)] leading-none min-w-0" style="line-height:1;">{i+4}</span>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
-              alt={film.title}
-              class="w-full h-[42vw] max-h-[330px] min-h-[210px] rounded-3xl shadow-xl object-cover"
-            />
-          </div>
+        class="flex flex-col items-center flex-none relative"
+        style="width:clamp(260px,18vw,270px);"
+      >
+        <div class="flex items-center w-full">
+          <span class="text-white font-extrabold mr-24 text-[clamp(200px,18vw,300px)] leading-none min-w-0" style="line-height:1;">{i+4}</span>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
+            alt={film.title}
+            class="w-full h-[42vw] max-h-[330px] min-h-[210px] rounded-3xl shadow-xl object-cover"
+          />
         </div>
+      </div>
+      </a>
+        
       {/each}
       <!-- Pour l'effet 7,5 affiches visibles, on ajoute un espace à droite -->
       <div class="flex-none" style="width:clamp(130px,12vw,180px)"></div>
@@ -175,40 +187,7 @@
     <span class="absolute -left-2 -bottom-1 top-2 bg-[#F51010] z-0 w-full h-2/3 rounded-lg -rotate-3"></span>
   </h2>
 
-  <div class="flex overflow-x-auto pb-6 px-4 gap-8 cast-scroll">
-        {#each currentMovies.slice(10, 20) as movie}
-        <a href={`/film/${movie.id}`}>
-            <div class="flex-shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer w-[320px]">
-                <div class="relative w-full h-[480px] rounded-xl overflow-hidden bg-neutral-800">
-                    <img
-                        src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} 
-                        alt={movie.title}
-                        class="w-full h-full object-contain"
-                    />
-                    <div class="absolute top-2 right-2">
-                        <div class="relative w-10 h-10 bg-black/80 rounded-full flex items-center justify-center">
-                            <svg width="40" height="40" class="absolute transform -rotate-90">
-                                <circle cx="20" cy="20" r="16" fill="none" stroke="#333" stroke-width="3"/>
-                                <circle
-                                    cx="20" cy="20" r="16"
-                                    fill="none"
-                                    stroke={getScoreColor(convertScore(movie.vote_average))}
-                                    stroke-width="3"
-                                    stroke-dasharray="100"
-                                    stroke-dashoffset={100 - (100 * convertScore(movie.vote_average) / 100)}
-                                    stroke-linecap="round"
-                                    class="score-progress"
-                                />
-                            </svg>
-                            <span class="text-white text-xs font-bold z-10">{convertScore(movie.vote_average)}%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h3 class="text-base font-semibold text-white text-center w-full mt-5 whitespace-normal break-words">{movie.title}</h3>
-        </a>
-        {/each}
-</div>
+  <CarrouselCurrent {currentMovies} number1={10} number2={20} />
 
 </main>
 
@@ -220,26 +199,4 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-
-  .cast-scroll {
-        scrollbar-width: thin;
-        scrollbar-color: #F51010 transparent;
-    }
-
-    .cast-scroll::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .cast-scroll::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .cast-scroll::-webkit-scrollbar-thumb {
-        background: #F51010;
-        border-radius: 3px;
-    }
-
-    .score-progress {
-        transition: stroke-dashoffset 0.5s ease;
-    }
 </style>

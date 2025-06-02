@@ -7,6 +7,7 @@
   </script>
   
   <section class="flex flex-col gap-4">
+    <a href={`/film/${film.id}`}>
     <div class={`flex-none ${isLarge ? 'w-[420px] h-[600px]' : 'w-[320px] h-[440px]'} bg-gray-800 rounded-2xl shadow-xl`}>
         <div class={`${isLarge ? 'h-full' : 'h-full'} bg-gray-700 rounded-xl mb-2 overflow-hidden`}>
           <img 
@@ -21,5 +22,6 @@
     <div class="text-center px-4 text-white">
         <span class={`block font-semibold ${isLarge ? 'text-2xl' : 'text-lg'}`}>{film.title}</span>
     </div>
+    </a>
   </section>
   
