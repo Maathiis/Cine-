@@ -1,4 +1,5 @@
 <script>
+	import { getScoreColor, convertScore } from '$lib/globalFunction.js';
 	import { page } from '$app/stores';
 	import { searchMovieByTitle } from '$lib/api';
 	import { goto } from '$app/navigation';
@@ -49,7 +50,6 @@
 		<div class="mb-8">
 			<h1 class="text-2xl md:text-3xl font-bold mb-2">Résultats pour "{query}"</h1>
 			{#if !loading && movies.length > 0}
-			{console.log(movies)}
 				<p class="text-gray-400">
 					{movies.length} résultat{movies.length > 1 ? 's' : ''} trouvé{movies.length > 1 ? 's' : ''}
 				</p>
@@ -71,7 +71,6 @@
 				{#each movies as movie}
 				<a href={`/film/${movie.id}`}>
 					<div class="movie-card">
-						<!-- Conteneur de l'affiche avec bordure rouge pour debug -->
 						<div class="image-container">
 							{#if movie.poster_path}
 								<img 
@@ -79,8 +78,6 @@
 									alt={movie.title}
 									class="movie-image"
 									loading="lazy"
-									on:load={() => console.log('Image chargée:', movie.title)}
-									on:error={() => console.log('Erreur image:', movie.title)}
 								/>
 							{:else}
 								<div class="no-image">
@@ -95,12 +92,26 @@
 							
 							<!-- Score sur l'affiche -->
 							{#if movie.vote_average > 0}
-								<div class="score-badge">
-									<span class="text-xs font-bold text-white">
-										{Math.round(movie.vote_average * 10)}%
-									</span>
+							<div class="absolute top-2 right-2">
+								<div class="relative w-10 h-10 bg-black/80 rounded-full flex items-center justify-center">
+									<svg width="40" height="40" class="absolute transform -rotate-90">
+										<circle cx="20" cy="20" r="16" fill="none" stroke="#333" stroke-width="3"/>
+										<circle
+											cx="20" cy="20" r="16"
+											fill="none"
+											stroke={getScoreColor(convertScore(movie.vote_average))}
+											stroke-width="3"
+											stroke-dasharray="100"
+											stroke-dashoffset={100 - (100 * convertScore(movie.vote_average) / 100)}
+											stroke-linecap="round"
+											class="score-progress"
+										/>
+									</svg>
+									<span class="text-white text-xs font-bold z-10">{convertScore(movie.vote_average)}%</span>
 								</div>
+							</div>
 							{/if}
+							
 						</div>
 						
 						<!-- Titre du film -->
@@ -167,15 +178,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}
-	
-	.score-badge {
-		position: absolute;
-		top: 8px;
-		right: 8px;
-		background-color: rgba(0, 0, 0, 0.75);
-		border-radius: 9999px;
-		padding: 4px 8px;
 	}
 	
 	.movie-title {

@@ -1,5 +1,6 @@
 <script>
     import { transformMinutesToHours, convertScore, formatDateFR, getScoreColor } from "$lib/globalFunction.js";
+    import { createEventDispatcher } from 'svelte';
     export let movie = {
         title: "",
         year: 2025,
@@ -10,6 +11,7 @@
         synopsis: "",
         poster: ""
     };
+    const dispatch = createEventDispatcher();
 </script>
 
 <div class="film-hero">
@@ -36,7 +38,7 @@
                     {/each}
                 </div>
                 <div>
-                    <button class="trailer-btn">
+                    <button class="trailer-btn" on:click={() => dispatch('showTrailers')}>
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                             <path d="M6.271 5.055a.5.5 0 0 1 .52.038L11 7.055a.5.5 0 0 1 0 .89L6.791 9.907a.5.5 0 0 1-.791-.39V5.5a.5.5 0 0 1 .271-.445z"/>

@@ -1,7 +1,6 @@
 <script>
     import { convertBudget, convertRevenue, convertLanguage, translateStatus } from "$lib/globalFunction.js";
     export let filmInfo;
-    console.log(filmInfo);
 </script>
 
 <div class="film-info-container">

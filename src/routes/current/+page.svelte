@@ -16,8 +16,8 @@
     <span class="absolute -left-2 -bottom-1 top-2 bg-[#F51010] z-0 w-full h-2/3 rounded-lg -rotate-3"></span>
   </h2>
 
-  <!-- PODIUM SVG -->
-  <div class="relative w-full flex justify-center items-end" style="height:clamp(700px,44vw,520px);">
+  <!-- PODIUM SVG (desktop/tablette uniquement) -->
+  <div class="relative w-full justify-center items-end hidden md:flex" style="height:clamp(700px,44vw,520px);">
 
     <a href={`/film/${currentMovies[0].id}`}>
       <div class="absolute top-10 left-[43%]  w-[190px] h-[270px]">
@@ -144,6 +144,23 @@
         </defs>
     </svg>
 
+  </div>
+
+  <!-- Version mobile du Top 3 -->
+  <div class="flex flex-col gap-6 md:hidden px-4 mb-8">
+    {#each currentMovies.slice(0, 3) as film}
+      <a href={`/film/${film.id}`} class="flex gap-4 items-center bg-neutral-900 rounded-xl shadow-lg p-3">
+        <img
+          src={`https://image.tmdb.org/t/p/w185${film.poster_path}`}
+          alt={film.title}
+          class="w-20 h-28 object-cover rounded-lg flex-shrink-0"
+        />
+        <div class="flex flex-col justify-center flex-1">
+          <h3 class="text-lg font-semibold text-white mb-1">{film.title}</h3>
+          <span class="text-sm text-gray-400">{getScoreColor ? convertScore(film.vote_average) + '/100' : ''}</span>
+        </div>
+      </a>
+    {/each}
   </div>
 
   <!-- Titre Top 10 -->

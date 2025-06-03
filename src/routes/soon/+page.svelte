@@ -5,7 +5,6 @@
 
     export let data;
     $: upcomingMovies = data.upcomingMovies.results;
-    $: console.log(upcomingMovies);
 
 
 </script>

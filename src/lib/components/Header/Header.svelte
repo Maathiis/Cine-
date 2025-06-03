@@ -106,7 +106,6 @@
           type="text"
           class="w-full bg-gray-900 text-white rounded-full py-2 px-4 focus:outline-none"
           placeholder="Rechercher un film..."
-          autofocus
           bind:value={query}
           on:keydown={handleKeyDown}
         />
@@ -123,8 +122,9 @@
           <li class="py-3 border-b border-gray-800">
             <a
               href="/popular"
-              class="text-white text-lg block transition-colors hover:text-[#F51010]"
+              class="text-lg block transition-colors hover:text-[#F51010]"
               class:text-[#F51010]={currentPath === "/popular"}
+              class:text-white={currentPath !== "/popular"}
               on:click={handleLinkClick}
             >
               Populaire
@@ -133,8 +133,9 @@
           <li class="py-3 border-b border-gray-800">
             <a
               href="/current"
-              class="text-white text-lg block transition-colors hover:text-[#F51010]"
+              class="text-lg block transition-colors hover:text-[#F51010]"
               class:text-[#F51010]={currentPath === "/current"}
+              class:text-white={currentPath !== "/current"}
               on:click={handleLinkClick}
             >
               Du moment
@@ -143,8 +144,9 @@
           <li class="py-3">
             <a
               href="/soon"
-              class="text-white text-lg block transition-colors hover:text-[#F51010]"
+              class="text-lg block transition-colors hover:text-[#F51010]"
               class:text-[#F51010]={currentPath === "/soon"}
+              class:text-white={currentPath !== "/soon"}
               on:click={handleLinkClick}
             >
               À venir
@@ -169,8 +171,9 @@
           <li>
             <a
               href="/popular"
-              class="text-white font-medium transition-all duration-300 hover:text-[#F51010] group-hover:[&:not(:hover)]:opacity-50"
+              class="font-medium transition-all duration-300 hover:text-[#F51010] group-hover:[&:not(:hover)]:opacity-50"
               class:text-[#F51010]={currentPath === "/popular"}
+              class:text-white={currentPath !== "/popular"}
             >
               Populaire
             </a>
@@ -178,8 +181,9 @@
           <li>
             <a
               href="/current"
-              class="text-white font-medium transition-all duration-300 hover:text-[#F51010] group-hover:[&:not(:hover)]:opacity-50"
+              class="font-medium transition-all duration-300 hover:text-[#F51010] group-hover:[&:not(:hover)]:opacity-50"
               class:text-[#F51010]={currentPath === "/current"}
+              class:text-white={currentPath !== "/current"}
             >
               Du moment
             </a>
@@ -187,8 +191,9 @@
           <li>
             <a
               href="/soon"
-              class="text-white font-medium transition-all duration-300 hover:text-[#F51010] group-hover:[&:not(:hover)]:opacity-50"
+              class="font-medium transition-all duration-300 hover:text-[#F51010] group-hover:[&:not(:hover)]:opacity-50"
               class:text-[#F51010]={currentPath === "/soon"}
+              class:text-white={currentPath !== "/soon"}
             >
               À venir
             </a>

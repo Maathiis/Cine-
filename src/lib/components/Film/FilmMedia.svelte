@@ -15,9 +15,11 @@
     function setActiveTab(tabName) {
         activeTab = tabName;
     }
+
+    let mediaSection;
 </script>
 
-<div class="mb-8 text-white min-w-0 overflow-hidden h-full">
+<div id="media-section" class="mb-8 text-white min-w-0 overflow-hidden h-full" bind:this={mediaSection} tabindex="-1">
     <div class="bg-gradient-to-br from-neutral-700 to-neutral-800 rounded-xl p-6 border border-neutral-600 h-full flex flex-col">
         <!-- Header : Titre en position absolue + Tabs centrés sur toute la largeur -->
         <div class="relative mb-4 header-responsive">

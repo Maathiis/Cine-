@@ -1,7 +1,6 @@
 <script>
 import { convertScore } from "$lib/globalFunction.js";
   export let upcomingMovies;
-  console.log(upcomingMovies);
   
   // État pour le mois/année actuels
   let currentDate = new Date();
@@ -63,7 +62,6 @@ import { convertScore } from "$lib/globalFunction.js";
       });
     });
     
-    console.log("Organized movies:", organized);
     return organized;
   }
   
@@ -138,9 +136,7 @@ import { convertScore } from "$lib/globalFunction.js";
   }
   
   $: wednesdays = getWednesdaysOfMonth(currentYear, currentMonth);
-  $: console.log(wednesdays);
   $: organizedMovies = organizeMoviesByWednesdays(upcomingMovies, wednesdays);
-  $: console.log(organizedMovies);
   $: numberOfWednesdays = wednesdays.length;
 </script>
 

@@ -40,6 +40,34 @@ $: recommendationsData = data.recommendations.results;
 
 $: filmInfo = data.details;
    
+// Pour scroll et focus sur la section media
+let mediaSection;
+let blinkTimeout;
+function handleShowTrailers() {
+  // Scroll fluide jusqu'à la section media
+  const el = document.getElementById('media-section');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Ajoute la classe de clignotement
+    el.classList.add('blink-media');
+    // Après le scroll, focus sur la première vidéo
+    setTimeout(() => {
+      // Cherche le premier lien vidéo dans l'onglet Vidéos
+      const firstVideo = el.querySelector('.media-scroll a');
+      if (firstVideo) {
+        firstVideo.focus();
+      } else {
+        // Si pas trouvé, focus sur la section media
+        el.focus();
+      }
+    }, 600); // délai pour laisser le scroll se terminer
+    // Retire la classe après 2 secondes
+    clearTimeout(blinkTimeout);
+    blinkTimeout = setTimeout(() => {
+      el.classList.remove('blink-media');
+    }, 2000);
+  }
+}
 </script>
 
 <svelte:head>
@@ -49,14 +77,14 @@ $: filmInfo = data.details;
 <main class="film-page">
     <div class="film-content">
         <!-- Composant 1: Hero -->
-        <FilmHero movie={movieData} />
+        <FilmHero movie={movieData} on:showTrailers={handleShowTrailers} />
         
         <!-- Composant 2: Cast -->
         <FilmCast cast={castData} />
         
         <!-- Composants 3 et 6: Media + Info (côte à côte) -->
         <div class="media-info-section">
-            <FilmMedia media={mediaData} />
+            <FilmMedia media={mediaData} bind:mediaSection />
             <FilmInfo filmInfo={filmInfo} />
         </div>
         
@@ -122,5 +150,12 @@ $: filmInfo = data.details;
         .media-info-section {
             gap: 16px;
         }
+    }
+
+    /* Clignotement pour la section media */
+
+    @keyframes blink-media-effect {
+        from { background-color: inherit; }
+        to { background-color: #F5101022; }
     }
 </style>
