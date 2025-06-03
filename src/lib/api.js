@@ -198,6 +198,62 @@ export const getActorDetails = async (id, page = 1) => {
 };
 
 /*
+* Get the movies credits for a person
+*
+* @param {number} id
+* @returns {Promise}
+*
+* */
+
+export const getPersonMoviesCredits = async (id) => {
+	const response = await fetch(
+		`${API_URL}person/${id}/movie_credits?language=${language}`,
+		{
+			method: "GET",
+			headers,
+		});
+	return  response.json();
+};
+
+/*
+* Get the "known for" movies for a person
+*
+* @param {number} id
+* @returns {Promise}
+*
+* */
+export const getPersonKnownForMovies = async (id) => {
+	try {
+		const response = await fetch(
+			`${API_URL}person/${id}/movie_credits?language=${language}`,
+			{
+				method: "GET",
+				headers,
+			}
+		);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+
+		const data = await response.json();
+
+		// 👉 On trie les films joués (cast) par popularité décroissante
+		const sortedByPopularity = data.cast
+			.filter(movie => movie.poster_path) // (optionnel) on enlève ceux sans affiche
+			.sort((a, b) => b.popularity - a.popularity);
+
+		// 👉 On garde les 5 plus populaires
+		const topKnownFor = sortedByPopularity.slice(0, 10);
+
+		return topKnownFor;
+	} catch (error) {
+		console.error("Erreur lors de la récupération des films :", error);
+		return [];
+	}
+};
+
+/*
 * Get details from a movie by id
 *
 * @param {number} id

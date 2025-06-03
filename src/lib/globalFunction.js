@@ -14,14 +14,15 @@ export function convertScore(scoreStr) {
 // Convertit la date en date française
 export function formatDateFR(dateStr) {
     const [year, month, day] = dateStr.split("-");
-    return `${day}/${month}/${year}`;
+    return `${day} / ${month} / ${year}`;
 }
 
 // Convertit la date en date texte français
 export function formatDateTextFR(dateStr) {
     const [year, month, day] = dateStr.split("-");
     const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-    return `${day} ${months[month - 1]} ${year}`;
+    const days = day.replace(/^0/, "");
+    return `${days} ${months[month - 1]} ${year}`;
 }
 
 // Convertit la date format iso en date française
@@ -90,4 +91,16 @@ export function translateStatus(status) {
 // N'affiche que les films pas encore sortis
 export function filterUpcomingMovies(movies) {
     return movies.filter(movie => movie.release_date > new Date().toISOString().split('T')[0]);
+}
+
+// Retourne l'âge en fonction de la date de naissance
+export function getAge(birthday) {
+    const today = new Date();
+    const birthDate = new Date(birthday);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
