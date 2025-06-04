@@ -11,9 +11,52 @@
 	let errorMessage = '';
 	let currentPage = 1;
 	let totalPages = 1;
+	let sortOrder = {
+		date: 'desc',
+		note: 'desc'
+	};
+	let originalMovies = []; // Pour stocker l'ordre original
 
 	$: query = $page.url.searchParams.get('query');
 	$: currentPage = Number($page.url.searchParams.get('page') || 1);
+
+	function resetSort() {
+		sortOrder = {
+			date: 'desc',
+			note: 'desc'
+		};
+		movies = [...originalMovies];
+	}
+
+	function toggleSort(type) {
+		if (type === 'date') {
+			sortOrder.date = sortOrder.date === 'desc' ? 'asc' : 'desc';
+			sortMoviesByDate();
+		} else if (type === 'note') {
+			sortOrder.note = sortOrder.note === 'desc' ? 'asc' : 'desc';
+			sortMoviesByNote();
+		}
+	}
+
+	function sortMoviesByDate() {
+		movies = [...movies].sort((a, b) => {
+			const dateA = a.release_date ? new Date(a.release_date) : new Date(0);
+			const dateB = b.release_date ? new Date(b.release_date) : new Date(0);
+			return sortOrder.date === 'desc'
+				? dateB - dateA
+				: dateA - dateB;
+		});
+	}
+
+	function sortMoviesByNote() {
+		movies = [...movies].sort((a, b) => {
+			const noteA = a.vote_average || 0;
+			const noteB = b.vote_average || 0;
+			return sortOrder.note === 'desc'
+				? noteB - noteA
+				: noteA - noteB;
+		});
+	}
 
 	async function fetchMovies() {
 		if (!query) return;
@@ -21,6 +64,7 @@
 		try {
 			const data = await searchMovieByTitle(query, currentPage);
 			movies = data.results;
+			originalMovies = [...data.results]; // Sauvegarde de l'ordre original
 			totalPages = data.total_pages;
 			if (movies.length === 0) {
 				errorMessage = 'Aucun film trouvé.';
@@ -55,6 +99,47 @@
 				</p>
 			{/if}
 		</div>
+
+		<!-- Boutons de tri -->
+		{#if !loading && movies.length > 0}
+			<div class="flex gap-4 mb-6">
+				<button
+					class="px-4 py-2 rounded bg-gray-800 hover:bg-[#F51010] transition-colors flex items-center gap-2"
+					on:click={() => toggleSort('date')}
+				>
+					Trier par date : {sortOrder.date === 'desc' ? 'Plus récent' : 'Plus ancien'}
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+						{#if sortOrder.date === 'desc'}
+							<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+						{:else}
+							<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+						{/if}
+					</svg>
+				</button>
+				<button
+					class="px-4 py-2 rounded bg-gray-800 hover:bg-[#F51010] transition-colors flex items-center gap-2"
+					on:click={() => toggleSort('note')}
+				>
+					Trier par note : {sortOrder.note === 'desc' ? 'Meilleure' : 'Moins bonne'}
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+						{#if sortOrder.note === 'desc'}
+							<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+						{:else}
+							<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+						{/if}
+					</svg>
+				</button>
+				<button
+					class="px-4 py-2 rounded bg-gray-800 hover:bg-[#F51010] transition-colors flex items-center gap-2"
+					on:click={resetSort}
+				>
+					Réinitialiser
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+					</svg>
+				</button>
+			</div>
+		{/if}
 
 		{#if loading}
 			<div class="flex justify-center items-center py-20">
