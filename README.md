@@ -1,8 +1,8 @@
-# CinePlus - Portail cinéma avec Svelte & TMDB API
+# Ciné+ - Portail cinéma avec Svelte & TMDB API
 
 ## Description
 
-CinePlus est un portail web développé avec [Svelte](https://svelte.dev/) qui utilise l’API TMDB (The Movie Database) pour offrir une expérience riche autour des films et des acteurs. Le site permet de rechercher des films, naviguer parmi les films populaires, à venir, ou en cours, et consulter les détails complets des films et des membres de l’équipe technique.
+Ciné+ est un portail web développé avec [Svelte](https://svelte.dev/) qui utilise l’API TMDB (The Movie Database) pour offrir une expérience riche autour des films et des acteurs. Le site permet de rechercher des films, naviguer parmi les films populaires, à venir, ou en cours, et consulter les détails complets des films et des membres de l’équipe technique.
 
 ---
 
@@ -21,8 +21,8 @@ CinePlus est un portail web développé avec [Svelte](https://svelte.dev/) qui u
 1. Cloner le dépôt :
 
    ```bash
-   git clone https://github.com/ton-username/cineplus.git
-   cd cineplus
+   git clone https://github.com/Maathiis/Cine-.git
+   cd cine-
    ```
    
 2. Installer les dépendances :
