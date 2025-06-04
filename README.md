@@ -1,38 +1,63 @@
-# sv
+# CinePlus - Portail cinéma avec Svelte & TMDB API
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Description
 
-## Creating a project
+CinePlus est un portail web développé avec [Svelte](https://svelte.dev/) qui utilise l’API TMDB (The Movie Database) pour offrir une expérience riche autour des films et des acteurs. Le site permet de rechercher des films, naviguer parmi les films populaires, à venir, ou en cours, et consulter les détails complets des films et des membres de l’équipe technique.
 
-If you're seeing this, you've probably already done this step. Congrats!
+---
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Fonctionnalités
 
-# create a new project in my-app
-npx sv create my-app
-```
+- **Moteur de recherche** : Recherche instantanée de films via l’API TMDB.
+- **Page de résultats de recherche** : Affichage des résultats avec filtres et pagination.
+- **Sections dédiées** : Films populaires, films à venir, films du moment.
+- **Page film** : Photos, vidéos (trailers), avis, résumé détaillé.
+- **Page acteur/membre équipe technique** : Photo, biographie, filmographie.
 
-## Developing
+---
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Installation
 
-```bash
-npm run dev
+1. Cloner le dépôt :
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+   ```bash
+   git clone https://github.com/ton-username/cineplus.git
+   cd cineplus
+   ```
+   
+2. Installer les dépendances :
+    
+    ```bash
+    npm install
+    ```
+   
+3. Configurer la clé API TMDB :
 
-## Building
+    - Créer un fichier `.env` à la racine du projet et ajouter votre clé API TMDB :
 
-To create a production version of your app:
+    ```
+   VITE_TMDB_API_KEY=your_api_key_here
+   ```
+   
+4. Lancer le projet :
 
-```bash
-npm run build
-```
+    ```bash
+    npm run dev
+    ```
+    
 
-You can preview the production build with `npm run preview`.
+5. Ouvrir votre navigateur et accéder à `http://localhost:5173`.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+---
+
+## Technologies utilisées
+
+- **Svelte** : Librairie JavaScript pour construire des interfaces utilisateur.
+- **SvelteKit** : Framework pour Svelte, utilisé pour le routing et la gestion des pages.
+- **TMDB API** : API pour récupérer des informations sur les films et les acteurs.
+- **Tailwind CSS** : Pour le style et la mise en page.
+- **Vercel** : Pour le déploiement.
+
+## Déploiement
+
+Le projet est déployé sur Vercel. Vous pouvez accéder à l'application via [ce lien](https://cineplus-rho.vercel.app/).
