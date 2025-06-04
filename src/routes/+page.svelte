@@ -81,12 +81,86 @@
 <main class="bg-black text-white">
   <!-- Hero Carousel -->
   <section 
-    class="relative w-screen h-[90vh] overflow-hidden p-4 md:p-8 lg:p-12 flex items-center"
-    aria-label="Films à l'affiche"
-  >
-    <!-- Navigation gauche -->
+  class="relative w-screen overflow-hidden p-4 md:p-8 lg:p-12 flex flex-col items-stretch pb-12"
+  aria-label="Films à l'affiche"
+>
+  <!-- Slides container -->
+  <div class="w-full max-w-7xl mx-auto relative">
+    {#each heroMovies as movie, index}
+      <div 
+        class="w-full flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 transition-opacity duration-700 {currentSlide === index ? 'opacity-100 block' : 'opacity-0 hidden'}"
+        class:fade-in-right={currentSlide === index && slideDirection === 'right'}
+        class:fade-in-left={currentSlide === index && slideDirection === 'left'}
+        role="tabpanel"
+        aria-labelledby={`slide-${index}`}
+        id={`slide-${index}`}
+      >
+        <!-- Affiche -->
+        <div class="w-full lg:w-2/5 flex flex-col items-center lg:items-start gap-6">
+          <a 
+            href={`/film/${movie.id}`} 
+            aria-label={`Voir les détails de ${movie.title}`}
+            on:mouseenter={stopAutoplay}
+            on:mouseleave={startAutoplay}
+          >
+            <div class="w-3/5 lg:w-full max-w-sm mx-auto lg:mx-0">
+              <img 
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                alt={`Affiche du film ${movie.title}`} 
+                class="object-cover rounded-xl w-full aspect-[3/4] shadow-2xl transform hover:scale-105 transition-transform duration-300" 
+              />
+            </div>
+          </a>
+        </div>
+
+        <!-- Contenu -->
+        <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-3/5 justify-center text-center lg:text-left">
+          <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold animate-fade-in-right animation-delay-300">
+            {movie.title}
+          </h1>
+          <p class="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed animate-fade-in-right animation-delay-600 max-w-2xl mx-auto lg:mx-0">
+            {movie.overview}
+          </p>
+
+          <!-- Bouton CTA -->
+          <div class="animate-fade-in-right animation-delay-900">
+            <a href={`/film/${movie.id}`} class="inline-block" aria-label={`Voir les détails de ${movie.title}`}> 
+              <button 
+                class="bg-[#F51010] hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+                type="button"
+              >
+                Voir le film
+              </button>
+            </a>
+          </div>
+
+          <!-- Indicateurs sous le bouton -->
+          <div 
+            class="flex gap-3 mt-6 justify-center lg:justify-start"
+            role="tablist"
+            aria-label="Navigation des films"
+          >
+            {#each heroMovies as _, i}
+              <button 
+                class="w-3 h-3 rounded-full transition-all duration-300 {currentSlide === i ? 'bg-[#F51010]' : 'bg-white/50 hover:bg-white/70'}"
+                on:click={() => goToSlide(i)}
+                aria-label="Aller au film {i + 1}"
+                role="tab"
+                aria-selected={currentSlide === i}
+                type="button"
+              ></button>
+            {/each}
+          </div>
+        </div>
+      </div>
+    {/each}
+  </div>
+
+ <!-- Conteneur positionné relativement au parent -->
+  <div class="absolute top-40 left-0 right-0 z-20 flex justify-between px-4 md:top-1/2 md:px-8 md:transform md:-translate-y-1/2 pointer-events-none">
+    <!-- Bouton gauche -->
     <button 
-      class="absolute left-4 md:left-8 z-20 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
+      class="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 pointer-events-auto"
       on:click={prevSlide}
       aria-label="Film précédent"
       type="button"
@@ -96,9 +170,9 @@
       </svg>
     </button>
 
-    <!-- Navigation droite -->
+    <!-- Bouton droit -->
     <button 
-      class="absolute right-4 md:right-8 z-20 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
+      class="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 pointer-events-auto"
       on:click={nextSlide}
       aria-label="Film suivant"
       type="button"
@@ -107,81 +181,8 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
       </svg>
     </button>
-
-    <!-- Slides -->
-    <div class="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 w-full max-w-7xl mx-auto relative">
-      {#each heroMovies as movie, index}
-        <div 
-          class="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 w-full transition-all duration-700 {currentSlide === index ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'}"
-          class:fade-in-right={currentSlide === index && slideDirection === 'right'}
-          class:fade-in-left={currentSlide === index && slideDirection === 'left'}
-          class:fade-out-right={currentSlide !== index && slideDirection === 'right'}
-          class:fade-out-left={currentSlide !== index && slideDirection === 'left'}
-          role="tabpanel"
-          aria-labelledby={`slide-${index}`}
-          id={`slide-${index}`}
-        >
-          <!-- Image -->
-          <div class="w-full lg:w-2/5 flex flex-col items-center lg:items-start gap-6">
-            <a 
-              href={`/film/${movie.id}`} 
-              aria-label={`Voir les détails de ${movie.title}`}
-              on:mouseenter={stopAutoplay}
-              on:mouseleave={startAutoplay}
-            >
-              <div class="w-3/5 lg:w-full max-w-sm animate-fade-in-up mx-auto lg:mx-0">
-                <img 
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                  alt={`Affiche du film ${movie.title}`} 
-                  class="object-cover rounded-xl w-full aspect-[3/4] shadow-2xl transform hover:scale-105 transition-transform duration-300" 
-                />
-              </div>
-            </a>
-          </div>
-          
-          <!-- Contenu -->
-          <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-3/5 justify-center text-center lg:text-left">
-            <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold animate-fade-in-right animation-delay-300">
-              {movie.title}
-            </h1>
-            <p class="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed animate-fade-in-right animation-delay-600 max-w-2xl mx-auto lg:mx-0">
-              {movie.overview}
-            </p>
-            
-            <!-- Bouton CTA -->
-            <div class="animate-fade-in-right animation-delay-900">
-              <a href={`/film/${movie.id}`} class="inline-block" aria-label={`Voir les détails de ${movie.title}`}> 
-                <button 
-                  class="bg-[#F51010] hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
-                  type="button"
-                >
-                  Voir le film
-                </button>
-              </a>
-            </div>
-          </div>
-        </div>
-      {/each}
-
-      <!-- Indicateurs de navigation -->
-      <div 
-        class="flex gap-3 mt-8 lg:mt-0 lg:absolute lg:bottom-8 lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20 justify-center"
-        role="tablist"
-        aria-label="Navigation des films"
-      >
-        {#each heroMovies as _, i}
-          <button 
-            class="w-3 h-3 rounded-full transition-all duration-300 {currentSlide === i ? 'bg-[#F51010]' : 'bg-white/50 hover:bg-white/70'}"
-            on:click={() => goToSlide(i)}
-            aria-label="Aller au film {i + 1}"
-            role="tab"
-            aria-selected={currentSlide === i}
-            type="button"
-          ></button>
-        {/each}
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
   
 
   <!-- Du moment -->
@@ -281,10 +282,6 @@
     }
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-
   .animate-fade-in-right {
     animation: fadeInRight 0.8s ease-out forwards;
     opacity: 0;
@@ -311,14 +308,7 @@
     opacity: 1;
     animation: fadeInLeftSlide 0.7s forwards;
   }
-  .fade-out-right {
-    opacity: 0;
-    animation: fadeOutRightSlide 0.7s forwards;
-  }
-  .fade-out-left {
-    opacity: 0;
-    animation: fadeOutLeftSlide 0.7s forwards;
-  }
+
   @keyframes fadeInRightSlide {
     from { opacity: 0; transform: translateX(30px); }
     to { opacity: 1; transform: translateX(0); }
