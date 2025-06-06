@@ -193,10 +193,48 @@
         <span class="absolute -left-2 -bottom-2 top-1 bg-[#F51010] z-0 w-[110%] h-3/4 rounded-lg -rotate-3"></span>
       </h2>
     </div>
-    <div class="flex overflow-x-auto gap-4 md:gap-6 scrollbar-hide p-4 md:p-8 lg:p-12">
-      {#each currentMovies as film}
-        <Card {film} />
-      {/each}
+    <div class="relative">
+      <button 
+        class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-r-lg transition-colors duration-300"
+        on:click={() => {
+          const container = document.querySelector('.current-movies-scroll');
+          if (container) {
+            container.scrollBy({
+              left: -320,
+              behavior: 'smooth'
+            });
+          }
+        }}
+        aria-label="Défiler vers la gauche"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+
+      <div class="flex overflow-x-auto gap-4 md:gap-6 scrollbar-hide p-4 md:p-8 lg:p-12 current-movies-scroll">
+        {#each currentMovies as film}
+          <Card {film} />
+        {/each}
+      </div>
+
+      <button 
+        class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-l-lg transition-colors duration-300"
+        on:click={() => {
+          const container = document.querySelector('.current-movies-scroll');
+          if (container) {
+            container.scrollBy({
+              left: 320,
+              behavior: 'smooth'
+            });
+          }
+        }}
+        aria-label="Défiler vers la droite"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
     </div>
   </section>
 
@@ -208,10 +246,48 @@
         <span class="absolute -left-2 -bottom-2 top-1 bg-[#F51010] z-0 w-[110%] h-3/4 rounded-lg -rotate-3"></span>
       </h2>
     </div>
-    <div class="flex overflow-x-auto gap-6 md:gap-10 scrollbar-hide p-4 md:p-8 lg:p-12">
-      {#each upcomingMovies as film}
-        <Card {film} size="large" {isUpcoming} />
-      {/each}
+    <div class="relative">
+      <button 
+        class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-r-lg transition-colors duration-300"
+        on:click={() => {
+          const container = document.querySelector('.upcoming-movies-scroll');
+          if (container) {
+            container.scrollBy({
+              left: -420,
+              behavior: 'smooth'
+            });
+          }
+        }}
+        aria-label="Défiler vers la gauche"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+
+      <div class="flex overflow-x-auto gap-6 md:gap-10 scrollbar-hide p-4 md:p-8 lg:p-12 upcoming-movies-scroll">
+        {#each upcomingMovies as film}
+          <Card {film} size="large" {isUpcoming} />
+        {/each}
+      </div>
+
+      <button 
+        class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-l-lg transition-colors duration-300"
+        on:click={() => {
+          const container = document.querySelector('.upcoming-movies-scroll');
+          if (container) {
+            container.scrollBy({
+              left: 420,
+              behavior: 'smooth'
+            });
+          }
+        }}
+        aria-label="Défiler vers la droite"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
     </div>
   </section>
 

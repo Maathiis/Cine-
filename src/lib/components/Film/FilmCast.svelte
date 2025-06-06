@@ -1,6 +1,27 @@
 <script>
     import CardActor from "$lib/components/Card/cardActor.svelte";
     export let cast = [];
+
+    let carouselContainer;
+    const scrollAmount = 180; // Largeur d'une carte + gap
+
+    function scrollLeft() {
+        if (carouselContainer) {
+            carouselContainer.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    function scrollRight() {
+        if (carouselContainer) {
+            carouselContainer.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    }
 </script>
 
 <div class="mb-8 text-white relative">
@@ -27,12 +48,37 @@
     
     <!-- Container des cartes - positionné au-dessus du SVG -->
     <div class="relative z-10">
+        <!-- Bouton gauche -->
+        <button 
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-r-lg transition-colors duration-300"
+            on:click={scrollLeft}
+            aria-label="Défiler vers la gauche"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+
         <!-- Scroll horizontal des cartes -->
-        <div class="flex gap-6 overflow-x-auto pb-6 px-4 cast-scroll">
+        <div 
+            class="flex gap-6 overflow-x-auto pb-6 px-4 cast-scroll"
+            bind:this={carouselContainer}
+        >
             {#each cast as actor}
                 <CardActor {actor} />
             {/each}
         </div>
+
+        <!-- Bouton droit -->
+        <button 
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-l-lg transition-colors duration-300"
+            on:click={scrollRight}
+            aria-label="Défiler vers la droite"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
     </div>
 </div>
 
